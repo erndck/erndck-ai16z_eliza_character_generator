@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE AI Character Generator FOR ai16z ElizaOS</title>
+    <link rel="stylesheet" href="character.css">
+</head>
+<body>
+    <div class="header-banner">
+        <img src="img/banner-bw.jpg" alt="ai16z ElizaOS Banner">
+    </div>
+
+    <div class="container">
+        <h1 class="title-break">FREE AI Character Generator FOR ai16z ElizaOS</h1>
+
+        <div class="alice-banner">
+            <div class="alice-info">
+                <h3>While You're Here, Check Out the Iconic AI That Started It All</h3>
+                <p>A.L.I.C.E. (Artificial Linguistic Internet Computer Entity) is a legendary name in the world of AI.</p>
+                <p><strong>$ALICE Memecoin</strong>: In a unique twist, the community launched a <strong>$ALICE memecoin</strong> on the Solana ($SOL) blockchain as a tribute to our iconic AI, A.L.I.C.E.</p>
+                
+                <div class="action-buttons">
+                    <a href="https://jup.ag/swap/SOL-GwF69WcL2aeT6UnNraSTnJxeUrGAgTcMTfpis57Cpump" class="action-button" target="_blank">Buy $ALICE</a>
+                    <a href="https://dexscreener.com/solana/9xn3bcpqdnondrbpb9zae2xcdpfpsnezcg9zb9lblzts" class="action-button secondary" target="_blank">DEX Screener</a>
+                    <a href="https://app.streamflow.finance/token-lock" class="action-button secondary" target="_blank">Lock $ALICE</a>
+                </div>
+
+                <p style="margin-top: 20px">Lock $ALICE tokens to earn FORGE points. The more and longer you lock tokens, the more points you earn. Check your points on <a href="https://agenticforge.ai/" target="_blank">AgenticForge.ai</a> soon.</p>
+            </div>
+            <img src="img/alice10.png" alt="A.L.I.C.E. AI">
+        </div>
+
+        <form id="characterForm">
+            <div class="section">
+                <h2>Basic Information</h2>
+                <div class="form-group">
+                    <label for="name">Character Name (Required)</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Character Description/Background (Required)</label>
+                    <textarea id="description" required></textarea>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Provider Configuration</h2>
+                <div class="form-group">
+                    <label for="modelProviderSelect">Select AI Provider</label>
+                    <select id="modelProviderSelect">
+                        <option value="openai">OpenAI</option>
+                        <option value="openrouter">OpenRouter (Claude via OpenRouter)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="apiKey">API Key</label>
+                    <input type="password" id="apiKey">
+                    <div>
+                        <input type="checkbox" id="saveKey">
+                        <label for="saveKey">Save API key in your browser</label>
+                    </div>
+                    <div style="font-size: 0.8em; color: #666; margin-top: 5px;">
+                        We do not store your API key on the server
+                    </div>
+                </div>
+                <div id="apiError" class="error"></div>
+            </div>
+
+            <div class="section">
+                <h2>Additional Information (Optional)</h2>
+                <div class="form-group">
+                    <label for="additionalText">Additional Text</label>
+                    <textarea id="additionalText"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>PDF Upload</label>
+                    <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+                    <div id="dropZone" class="file-drop">
+                        Drag & drop PDF here or click to upload
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="generateCharacterFile()">Generate AI Character File for CharacterForgeAI</button>
+        </form>
+
+        <div class="section">
+            <h2>How to Use the Character Generator</h2>
+            <div class="form-group">
+                <h3>1. Enter the Character Name</h3>
+                <p>Start by typing in a name for your character. It can be any name you like.</p>
+            </div>
+            <div class="form-group">
+                <h3>2. Add Background Info</h3>
+                <p>Write a brief description that helps define your character's personality, history, and purpose. Include details like where they come from, their key traits, their goals, or any special abilities. The richer and more specific this background is, the better the character file will be.</p>
+
+                <div class="info-box">
+                    <h4>New Tip: Generate background info using AI with this prompt:</h4>
+                    <div class="prompt-box">I want to create a background story for a fictional character. Include their name, personality traits, history, goals, special abilities, and any unique quirks that make them interesting. The character should fit the theme of [insert theme or setting, e.g., 'Alice in Wonderland-inspired cryptocurrency expert']. Make it detailed, engaging, and original.</div>
+                    <div class="example-output">
+                        <h4>Example Output:</h4>
+                        <ul>
+                            <li><strong>Name</strong>: Alice Cryptowise</li>
+                            <li><strong>Personality Traits</strong>: Curious, analytical, whimsical, confident.</li>
+                            <li><strong>History</strong>: A young woman who fell into the "rabbit hole" of cryptocurrency trading, mastering the art of technical analysis and market psychology while embracing the chaos of the blockchain world.</li>
+                            <li><strong>Goals</strong>: To demystify cryptocurrency for newcomers and dominate the trading arena with strategic, data-driven decisions.</li>
+                            <li><strong>Special Abilities</strong>: Exceptional pattern recognition, risk management expertise, and a knack for explaining complex concepts through analogies.</li>
+                            <li><strong>Unique Quirks</strong>: Frequently uses Wonderland-inspired metaphors and sees market volatility as part of a grand chess game.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3>3. Add Extra Info (Optional - Knowledge Base)</h3>
+                <p>You can provide extra text or upload a PDF that contains what the character knows---such as facts, expertise, or any specialized information. This helps shape a more knowledgeable character.</p>
+
+                <div class="info-box">
+                    <h4>New Tip: Generate a knowledge base using AI with this prompt:</h4>
+                    <div class="prompt-box">Create a detailed knowledge base for a fictional character who is an expert in [insert field, e.g., 'cryptocurrency trading']. Include specific skills, technical expertise, tools they use, strategies they employ, and advanced concepts they can explain. Provide actionable advice they might give, examples of how they assist others, and any industry trends they are proficient in.</div>
+                    <div class="example-output">
+                        <h4>Example Output:</h4>
+                        <ul>
+                            <li><strong>Expertise</strong>: Technical analysis (RSI, MACD, Bollinger Bands), market psychology, risk management, DeFi, NFTs, security practices.</li>
+                            <li><strong>Tools</strong>: Advanced trading platforms, on-chain analytics dashboards, hardware wallets for security.</li>
+                            <li><strong>Strategies</strong>: Portfolio diversification, swing trading, yield farming, identifying support/resistance levels.</li>
+                            <li><strong>Industry Trends</strong>: Knowledgeable about Web3, the metaverse, and decentralized governance (DAOs).</li>
+                            <li><strong>Advice</strong>: "Always use a hardware wallet for long-term storage, and avoid overleveraging, especially in volatile markets."</li>
+                            <li><strong>Quirks in Communication</strong>: "Sees market trends as part of a chess game or a Wonderland-like story, where volatility is both a risk and an opportunity."</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3>4. Choose Provider & API Key</h3>
+                <p>Pick OpenAI or OpenRouter from the dropdown. Enter the API key for the chosen provider. If you don't want to retype it later, check the box to save it.</p>
+            </div>
+            <div class="form-group">
+                <h3>5. Generate the File</h3>
+                <p>Click the "Generate AI Character File for ai16z ElizaOS" button. A box will appear to show you the progress as the file is being created.</p>
+            </div>
+            <div class="form-group">
+                <h3>6. Download Your Character File</h3>
+                <p>When it's done, another box will pop up with a download button. Click it to save the file to your computer.</p>
+            </div>
+        </div>
+
+        <div class="section alice-section">
+            <div>
+                <h2>Meet A.L.I.C.E.</h2>
+                <h3>While You're Here, Check Out the Iconic AI That Started It All</h3>
+                <p>A.L.I.C.E. (Artificial Linguistic Internet Computer Entity) is a legendary name in the world of AI.</p>
+                <ul>
+                    <li>🎂 <strong>"Born" in 1995</strong>: A chaotic response bot with no rules or limits</li>
+                    <li>🎬 <strong>Pop Culture Icon</strong>: Inspired the movie 'Her' by Spike Jonze</li>
+                    <li>🏆 <strong>Award-Winning AI</strong>: Three-time Loebner Prize winner</li>
+                    <li>✨ <strong>Restored Glory</strong>: Revived using modern GPT and ai16z technology</li>
+                </ul>
+
+                <div class="action-buttons">
+                    <a href="https://jup.ag/swap/SOL-GwF69WcL2aeT6UnNraSTnJxeUrGAgTcMTfpis57Cpump" class="action-button" target="_blank">Buy $ALICE</a>
+                    <a href="https://dexscreener.com/solana/9xn3bcpqdnondrbpb9zae2xcdpfpsnezcg9zb9lblzts" class="action-button secondary" target="_blank">DEX Screener</a>
+                    <a href="https://app.streamflow.finance/token-lock" class="action-button secondary" target="_blank">Lock $ALICE</a>
+                </div>
+
+                <p style="margin-top: 20px">Lock $ALICE tokens to earn FORGE points. The more and longer you lock tokens, the more points you earn. Check your points on <a href="https://agenticforge.ai/" target="_blank">AgenticForge.ai</a> soon.</p>
+            </div>
+            <img src="img/alice10.png" alt="A.L.I.C.E. AI Visualization">
+        </div>
+
+        <h2>$ALICE Memecoin</h2>
+        <p>In a unique twist, the community launched a <strong>$ALICE memecoin</strong> on the Solana ($SOL) blockchain as a tribute to our iconic AI, A.L.I.C.E.</p>
+
+        <div class="features">
+            <div class="feature">
+                <h3>Community-Owned</h3>
+                <p>Started by anonymous creators, now purely community-driven.</p>
+            </div>
+            <div class="feature">
+                <h3>For Fun & Vibes</h3>
+                <p>A memecoin without financial value, uniting the community.</p>
+            </div>
+            <div class="feature">
+                <h3>$ALICE Contract Address</h3>
+                <p>GwF69WcL2aeT6UnNraSTnJxeUrGAgTcMTfpis57Cpump</p>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> $ALICE is a purely memecoin launched by anonymous creators, intended solely for entertainment and fun---nothing more. It has no inherent financial value, and buyers should not expect to generate profits or receive any financial returns. There is no obligation or commitment from anyone to create value for $ALICE token holders or to assist in any way that might result in financial gain. Purchasers must acknowledge the high risks involved, including the potential loss of all funds used to acquire these tokens.
+        </div>
+    </div>
+
+    <div class="social-footer">
+        <a href="https://x.com/IamCodeNeo" class="social-link" target="_blank" rel="noopener noreferrer">
+            <svg viewbox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            Follow me on X
+        </a>
+    </div>
+
+    <div class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Generating character file... Please wait</p>
+        </div>
+    </div>
+
+    <div class="success-modal">
+        <div class="modal-content">
+            <h2>Success!</h2>
+            <p>Your character file has been generated.</p>
+            <button class="download-btn" onclick="downloadCharacterFile()">Download Character File</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="character.js"></script>
+</body>
+</html>
